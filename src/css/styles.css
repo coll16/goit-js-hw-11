@@ -1,0 +1,51 @@
+body {
+  background-color: #e9e9e9;
+}
+
+.search-form {
+  background-color: #e9e9e9;
+  height: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.photo-card {
+  width: calc(20% - 10px);
+  margin-bottom: 20px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+}
+
+.info {
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+
+.info-item {
+  margin: 0;
+}
+
+button.load-more {
+  display: none;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+button.load-more:hover {
+  background-color: #45a049;
+}
