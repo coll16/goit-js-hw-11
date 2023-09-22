@@ -156,7 +156,7 @@ const showLoadMoreButton = () => {
 };
 
 const hideLoadMoreButton = () => {
-  loadMoreBtn.style.display = 'none';
+ // loadMoreBtn.style.display = 'none';
 };
 
 const showNotification = message => {
