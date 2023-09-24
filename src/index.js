@@ -143,9 +143,6 @@ const clearGallery = () => {
   localStorage.removeItem('savedImages');
 };
 
-const showLoadMoreButton = () => {
-  loadMoreBtn.style.display = 'block';
-};
 
 const hideLoadMoreButton = () => {
  // loadMoreBtn.style.display = 'none';

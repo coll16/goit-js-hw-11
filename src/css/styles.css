@@ -12,7 +12,7 @@ body {
 }
 
 .gallery {
-  display: none;
+
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
