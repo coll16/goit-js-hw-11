@@ -35,7 +35,7 @@ const handleFormSubmit = async event => {
   const searchQuery = event.target.searchQuery.value.trim();
 
   if (searchQuery === '') {
-    window.location.reload();
+    showNotification('Please enter a non-empty search query before submitting.');
     return;
   }
 
@@ -67,41 +67,32 @@ const searchImages = async searchQuery => {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
+      localStorage.setItem('savedImages', JSON.stringify(hits));
+    
+      gallery.style.display = 'flex';
+      form.style.display = 'flex';
+    
       totalHits = foundImagesCount;
       renderImages(hits);
-      if (page === 1 && currentSearchQuery !== previousSearchQuery) {
-        showTotalHitsNotification(totalHits);
-      }
-      if (hits.length >= 40 && gallery.childElementCount < totalHits) {
-        showLoadMoreButton();
-      } else {
-        hideLoadMoreButton();
-      }
+      
     }
-  } catch (error) {
-    console.error(error);
-    showNotification(
-      'An error occurred while fetching images. Please try again later.'
-    );
+  
   } finally {
     isLoading = false;
   }
 };
 
 const renderImages = images => {
-  const fragment = document.createDocumentFragment();
-
   images.forEach(image => {
     const card = createPhotoCard(image);
-    fragment.appendChild(card);
+    gallery.appendChild(card);
   });
-
   gallery.appendChild(fragment);
 
-  if (!lightbox) {
-    lightbox = new SimpleLightbox('.gallery a', {});
-  } else {
+  if (lightbox) {
     lightbox.refresh();
+  } else {
+    lightbox = new SimpleLightbox('.gallery a', {});
   }
 };
 
@@ -149,6 +140,7 @@ const createInfoItem = (label, value) => {
 
 const clearGallery = () => {
   gallery.innerHTML = '';
+  localStorage.removeItem('savedImages');
 };
 
 const showLoadMoreButton = () => {
@@ -206,3 +198,21 @@ hideLoadMoreButton();
 hideNotification();
 
 form.addEventListener('submit', handleFormSubmit);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedImages = localStorage.getItem('savedImages');
+
+  if (savedImages) {
+    const parsedImages = JSON.parse(savedImages);
+    totalHits = parsedImages.length;
+    renderImages(parsedImages);
+    showTotalHitsNotification(totalHits);
+    gallery.style.display = 'flex';
+    form.style.display = 'none';
+  }
+
+
+});
+
+
+
